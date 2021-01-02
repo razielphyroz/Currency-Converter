@@ -1,0 +1,82 @@
+Criar projeto: npx create-react-app .
+
+Atalho criar component: rfc
+
+
+
+
+
+
+
+
+
+--------React Hooks-------
+
+---------useState()-------
+
+Hooks só podem ser usados em function components.
+
+Hooks devem ser utilizados sempre na mesma ordem em todos componentes.
+
+const [count, setCount] = useState()
+Sempre contém dois parametros.
+
+count = current state.
+setCount = function that allows to change current state.
+
+É importante usar uma arrow function para setar o valor de useState(), como:
+useState(() => return 4)
+Dessa maneira ele só chama o useState só uma vez, ao contrário do "hardcoded" que faria com que chamasse várias vezes.
+
+---------useEffect()-------
+
+Funciona como uma espécie de "trigger", ou seja, executa a função passada sempre que a propriedade do segundo parâmetro for alterada.
+
+useEffect(() => {
+	console.log("Name Mudou");
+}, [name]);
+
+Se o segundo parâmetro for vazio, ele só executa a função quando o componente "monta" / rerenderiza.
+
+useEffect(() => {
+	console.log("Componente Mount");
+}, []);
+
+Também pode ser definida uma função para ser executada quando o componente "unMount"
+
+useEffect(() => {
+	console.log("Componente Mount");
+
+	return () = {
+		console.log("Component Unmount");
+	}
+}, []);
+
+---------useMemo()-------
+
+Quando tiver funções pesadas que são carregadas ao re/renderizar, ele salva os valores paa evitar que elas tenham que ser chamadas novamente caso não tenham mudado seu valor.
+
+const doubleNumber = useMemo(() => {	return slowFunction(number);
+}, [number])
+
+segundo parametro é uma "lista de dependências", ou seja, quando algo que contem nela for alterado, a função será chamada novamente.
+
+---------useRef()-------
+
+Muito parecido com o useState, porém, as alterações no atributo do useRef não fazem com que o componente re/renderize.
+
+Nunca usar para alterar o valor do elemento DOM (usar useState para isso).
+
+const renderCount = useRef(0);
+
+useEffect(() => {
+	renderCount.current += 1;
+});
+
+Você também pode refenciar elementos do DOM a partir do useRef.
+Por exemplo:
+
+const inputRef = useRef();
+
+<input ref={inputRef} value={name}~onChange={e => setName(e.target.value)}/>
+
